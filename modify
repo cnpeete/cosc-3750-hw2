@@ -1,12 +1,20 @@
 #!/bin/sh
+name="Cameron Peete"
 
 
-for input in "$@";
+if [ $# -eq 0 ]; then
+   echo "usage:  modify filename [filename ...]"
+fi
+
+for input
 do
    if [ -d "$input" ]; then 
      echo "modify:  $input, is a directory."
    elif [ -x "$input" ]; then
      echo "modify:  $input, cannot edit executables"
+   elif file "$input" | grep -q "ASCII"; then
+    echo "doing the thing"
+    echo "$name"
    else
      echo "modify:  $input, filetype not supported"
    fi
