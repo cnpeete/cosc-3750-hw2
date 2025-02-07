@@ -1,11 +1,13 @@
 #!/bin/sh
 
 
-for input
+for input in "$@";
 do
    if [ -d "$input" ]; then 
-     echo "looping"
+     echo "modify:  $input, is a directory."
+   elif [ -x "$input" ]; then
+     echo "modify:  $input, cannot edit executables"
    else
-     echo "nothing"
+     echo "modify:  $input, filetype not supported"
    fi
 done
