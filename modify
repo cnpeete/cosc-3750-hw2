@@ -3,7 +3,7 @@
 
 for input
 do
-   if [input -f] ; then 
+   if [ -d "$input" ]; then 
      echo "looping"
    else
      echo "nothing"
