@@ -1,0 +1,11 @@
+#!/bin/sh
+
+
+for input
+do
+   if [input -f] ; then 
+     echo "looping"
+   else
+     echo "nothing"
+   fi
+done
