@@ -1,6 +1,23 @@
 #!/bin/sh
 name="Cameron Peete"
 
+weekday=`date +'%A'`
+month=`date +'%b'`
+dayNum=`date +'%d'`
+year=`date +'%Y'`
+hour=`date +'%H'`
+min=`date +'%M'`
+
+dateTime="$weekday, $month $dayNum: $hour$min"
+
+#echo "$weekday"
+#echo "$month"
+#echo "$dayNum"
+#echo "$year"
+#echo "$hour"
+#echo "$min"
+
+echo "$dateTime"
 
 if [ $# -eq 0 ]; then
    echo "usage:  modify filename [filename ...]"
@@ -13,8 +30,11 @@ do
    elif [ -x "$input" ]; then
      echo "modify:  $input, cannot edit executables"
    elif file "$input" | grep -q "ASCII"; then
-    echo "doing the thing"
-    echo "$name"
+    echo "It is ASCII Text"
+ed -s "$input" << END
+echo "Made it"
+sed -a "Modified on: '$datetime'\n Modified by: '$name'" "$input"
+END
    else
      echo "modify:  $input, filetype not supported"
    fi
