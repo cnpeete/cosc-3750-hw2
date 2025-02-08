@@ -10,15 +10,6 @@ min=`date +'%M'`
 
 dateTime="$weekday, $month $dayNum: $hour$min"
 
-#echo "$weekday"
-#echo "$month"
-#echo "$dayNum"
-#echo "$year"
-#echo "$hour"
-#echo "$min"
-
-echo "$dateTime"
-
 if [ $# -eq 0 ]; then
    echo "usage:  modify filename [filename ...]"
 fi
@@ -30,11 +21,22 @@ do
    elif [ -x "$input" ]; then
      echo "modify:  $input, cannot edit executables"
    elif file "$input" | grep -q "ASCII"; then
-    echo "It is ASCII Text"
 ed -s $input << END
 a
 Modified on: $dateTime
 Modified by: $name
+.
+w
+q
+END
+ed -s $input << END
+1m2
+.
+w
+q
+END
+ed -s $input << END
+(1,$)s/"Gradez"/"Grades"
 .
 w
 q
