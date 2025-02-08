@@ -21,7 +21,7 @@ do
    elif [ -x "$input" ]; then
      echo "modify:  $input, cannot edit executables"
    elif file "$input" | grep -q "ASCII"; then
-ed -s $input << END
+ed -s "$input" << END
 a
 Modified on: $dateTime
 Modified by: $name
@@ -29,14 +29,14 @@ Modified by: $name
 w
 q
 END
-ed -s $input << END
+ed -s "$input" << END
 1m2
 .
 w
 q
 END
-ed -s $input << END
-(1,$)s/"Gradez"/"Grades"
+ed -s "$input" << END
+1,\$s/Gradez/Grades/g
 .
 w
 q
